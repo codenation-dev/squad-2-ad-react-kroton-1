@@ -1,0 +1,80 @@
+body,
+html {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Container é a div que contém todos os elementos da página */
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-family: Montserrat;
+    padding-bottom: 1.5rem;
+    color: #212121 ;
+}
+
+p,
+input,
+a {
+    font-family: Ubuntu, monospace;
+}
+
+article {
+    padding: 5rem;
+}
+
+.login-help {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    border-radius: 12px;
+}
+#button-cadastro {
+    margin-top: 2rem;
+}
+
+#email-icon, #password-icon{
+    color:#8e24aa;
+}
+
+
+#brand
+{
+    font-size: 32px;
+    text-align: center;
+}
+
+#login-header {
+    font-size: 24px;
+}
+
+#header img {
+    padding: 0;
+    width: 128px;
+    height: 128px;
+    margin: 0 auto;
+}
+
+#header
+{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding-top: 0;
+}
