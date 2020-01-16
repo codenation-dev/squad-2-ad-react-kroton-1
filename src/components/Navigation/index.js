@@ -4,41 +4,43 @@ import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import {AuthUserContext} from "../Session";
 
+import { Layout, Menu } from 'antd';
+
+const { Header, Content, Footer } = Layout;
+
+
+
 
 const Navigation = ({ authUser }) => (
-        <div>
-            <AuthUserContext.Consumer>
+      <Header style={{ height: '32px' }}>
+         <div className="logo" />
+      <AuthUserContext.Consumer>
             {authUser =>
                 authUser ? <NavigationAuth /> : <NavigationNonAuth />}
             </AuthUserContext.Consumer>
-        </div>
+        </Header>
 
 );
 
 const NavigationAuth = () => (
-  <ul>
-    <li>
-      <Link to={ROUTES.LANDING}>Landing</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.HOME}>Home</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.ACCOUNT}>Account</Link>
-    </li>
-    <li>
-      <SignOutButton />
-    </li>
-  </ul>
+  <Menu
+  theme="dark"
+  mode="horizontal"
+  style={{ lineHeight: '32px' }}
+>
+     <Menu.Item key='1'> <Link to={ROUTES.HOME}>Inicio</Link> </Menu.Item>
+      <Menu.Item key='2'> <Link to={ROUTES.ACCOUNT}>Minha Conta</Link> </Menu.Item>
+     <Menu.Item key='3'> <SignOutButton /> </Menu.Item> 
+     </Menu>
+
 );
 const NavigationNonAuth = () => (
-  <ul>
-    <li>
-      <Link to={ROUTES.LANDING}>Landing</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </li>
-  </ul>
+  <Menu
+  theme="dark"
+  mode="horizontal"
+  style={{ lineHeight: '32px' }}
+>
+     <Menu.Item key='1'> <Link to={ROUTES.SIGN_IN}>Login</Link> </Menu.Item> 
+</Menu>
 );
 export default Navigation;

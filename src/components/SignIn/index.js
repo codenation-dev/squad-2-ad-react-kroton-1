@@ -5,11 +5,18 @@ import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
+
+/* ANT DESIGN */
+import {Button, Input, Form, Layout, Menu, Icon} from 'antd';
+import { PasswordForgetLink } from '../PasswordForget';
+
+
 const SignInPage = () => (
-  <div>
-    <h1>SignIn</h1>
+  <div id="signInPage">
+    <h1>Login</h1>
     <SignInForm />
     <SignUpLink />
+    <PasswordForgetLink/>
   </div>
 );
 const INITIAL_STATE = {
@@ -39,29 +46,34 @@ class SignInFormBase extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   render() {
+    
     const { email, password, error } = this.state;
     const isInvalid = password === '' || email === '';
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <Form className='loginForm' style={{maxWidth: '300px'}} onSubmit={this.onSubmit}>
+        <Input
+          prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+          style={{marginTop: '25px'}}
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
-          placeholder="Email Address"
+          placeholder="E-mail"
         />
-        <input
+        <Input
+          prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}  
+          style={{marginTop: '25px'}}
           name="password"
           value={password}
           onChange={this.onChange}
           type="password"
-          placeholder="Password"
+          placeholder="Senha"
         />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
+        <Button id="loginButton" style={{width: '100%'}} disabled={isInvalid} htmlType="submit" type='primary'>
+          Entrar
+        </Button>
         {error && <p>{error.message}</p>}
-      </form>
+      </Form>
     );
   }
 }

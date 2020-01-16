@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { FirebaseContext } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
-import {Anchor} from 'grommet';
+
+
+/*ANT DESIGN */
+import {Form, Input, Button} from 'antd';
 
 const SignUpPage = () => (
 
-  <div>
-    <h1>SignUp</h1>
+  <div id='signUpPage'>
+    <h1>Cadastro</h1>
     <FirebaseContext.Consumer>
       {firebase => <SignUpForm firebase={firebase} />}
     </FirebaseContext.Consumer>
@@ -70,38 +73,42 @@ class SignUpFormBase extends Component {
     username === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <Form style={{maxWidth: '300px'}} onSubmit={this.onSubmit}>
+        <Input
+          style={{marginTop: '25px'}}
           name="username"
           value={username}
           onChange={this.onChange}
           type="text"
-          placeholder="Full Name"
+          placeholder="Nome Completo"
         />
-        <input
+        <Input
+          style={{marginTop: '25px'}}
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
-          placeholder="Email Address"
+          placeholder="E-Mail"
         />
-        <input
+        <Input
+          style={{marginTop: '25px'}}
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
-          placeholder="Password"
+          placeholder="Senha"
         />
-        <input
+        <Input
+          style={{marginTop: '25px'}}
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
           type="password"
-          placeholder="Confirm Password"
+          placeholder="Confirme a senha"
         />
-        <button disabled={isInvalid} type="submit">Sign Up</button>
+        <Button style={{width: '100%', marginTop: '25px'}} disabled={isInvalid} type='primary' htmlType="submit">Cadastrar</Button>
         {error && <p>{error.message}</p>}
-      </form>
+      </Form>
     );
   }
 }
@@ -110,8 +117,8 @@ const SignUpForm = withRouter(SignUpFormBase);
 
 
 const SignUpLink = () => (
-  <p>
-    Don't have an account? <Anchor><Link style={{}} to={ROUTES.SIGN_UP}>Sign Up</Link></Anchor>
+  <p style={{marginTop: '25px'}}>
+   Não tem uma conta ? <Link style={{}} to={ROUTES.SIGN_UP}>Cadastre-se</Link>
   </p>
 );
 

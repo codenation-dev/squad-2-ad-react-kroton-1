@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
 
+/* Ant Design*/
+import {Form, Input, Button} from 'antd';
 
 const INITIAL_STATE = {
   passwordOne: '',
@@ -32,26 +34,26 @@ class PasswordChangeForm extends Component {
     const isInvalid =
       passwordOne !== passwordTwo || passwordOne === '';
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <Form style={{maxWidth: '300px'}} onSubmit={this.onSubmit}>
+          <Input
+          style={{marginTop: '25px'}}
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
-          placeholder="New Password"
+          placeholder="Nova senha"
         />
-        <input
+        <Input
+          style={{marginTop: '25px'}}
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
           type="password"
-          placeholder="Confirm New Password"
+          placeholder="Confirme a senha"
         />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
+        <Button style={{width: '100%', marginTop: '25px'}} disabled={isInvalid} type='primary' htmlType="submit">Mudar a senha</Button>
         {error && <p>{error.message}</p>}
-      </form>
+      </Form>
     );
   }
 }
