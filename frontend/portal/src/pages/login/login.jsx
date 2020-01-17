@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import clsx from 'clsx';
 import { Link } from "react-router-dom";
+
+// material-ui
 import { makeStyles } from '@material-ui/core/styles';
-import Logo from '../../assets/img/logo.png';
 import {
   Paper, 
   Input,
@@ -11,14 +12,14 @@ import {
   InputAdornment,
   IconButton,
   Button
-}from '@material-ui/core';
-import {
-  Visibility,
-  VisibilityOff,
-  Email,
-  Send
-} from '@material-ui/icons';
-import './login.css';
+} from '@material-ui/core';
+import { Visibility, VisibilityOff, Email, Send } from '@material-ui/icons';
+
+// imgs
+import Logo from '../../assets/img/logo.png';
+
+// styles
+import '../../assets/styles/login.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,10 +45,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Login() {
+export default () => {
   
   const classes = useStyles();
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     email: '',
     amount: '',
     password: '',
@@ -69,8 +70,8 @@ function Login() {
   };
 
   return (
-    <div className="container ">
-      <article className="login z-depth-5">
+    <div className="container">
+      <div className="login z-depth-5">
         <Paper className="paper">
           <section id="header">
             <img src={Logo} alt="Logo" />
@@ -81,7 +82,7 @@ function Login() {
           <form method="post" action="">
             <div className="row">
             <FormControl className={clsx(classes.margin, classes.textField)}>
-              <InputLabel htmlFor="input-with-icon-adornment">E-mail</InputLabel>
+              <InputLabel htmlFor="input-with-icon-adornment">Email</InputLabel>
               <Input
                 id="standard-with-icon-adornment-email"
                 type='email'
@@ -139,9 +140,7 @@ function Login() {
             <p><a href="recuperarSenha.html">Esqueci a senha</a></p>
           </div>
         </Paper>
-      </article>
+      </div>
     </div>
   );
 }
-
-export default Login;

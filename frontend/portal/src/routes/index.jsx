@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { Redirect, Route, Switch, HashRouter } from "react-router-dom";
+import { Redirect, Route, Switch, BrowserRouter } from "react-router-dom";
 
-import Login from '../pages/login/login';
-import Cadastro from '../pages/login/cadastro';
-import Home from '../pages/home/home';
+// pages
+import Login from "../pages/login/login";
+import Cadastro from "../pages/login/cadastro";
+import Home from "../pages/home/home";
 
 class Routes extends Component {
-
   render() {
     return (
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
           <Route exact path="/home" component={Home} />
           <Route exact path="/login" component={Login} />
@@ -17,7 +17,7 @@ class Routes extends Component {
 
           <Redirect from="*" to="/login" />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }

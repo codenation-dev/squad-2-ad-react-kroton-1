@@ -1,20 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat%7CUbuntu&display=swap%27');
-body,
-html {
-    height: 100vh;
-    width: 100vw;
-    background-image: url("../../assets/img/bg.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 /* Container é a div que contém todos os elementos da página */
 .container {
+    background-image: url("../img/bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -26,48 +19,48 @@ h1 {
     font-weight: 100;
 }
 
-p,
-input,
-a {
+p, input, a {
     font-family: Ubuntu, monospace;
 }
 
-article {
-    padding: 5rem;
-}
-
 .login-help {
-    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.login{
-    border-radius: 12px;
+.login {
+    padding: 2rem;
 }
+
 #button-cadastro {
     margin-top: 2rem;
 }
 
-.email-icon{
+.email-icon {
     margin-right: 12px;
 }
 
-.email-icon, .password-icon{
+.email-icon, .password-icon {
     color:#8e24aa;
 }
 
 
-#brand
-{
-    font-size: 32px;
+#brand {
+    font-size: 1.8rem;
     text-align: center;
 }
 
 #login-header {
-    font-size: 24px;
+    font-size: 1.5rem;
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding-top: 0;
 }
 
 #header img {
@@ -77,15 +70,6 @@ article {
     margin: 0 auto;
 }
 
-#header
-{
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding-top: 0;
-}
-
-.paper{
+.paper {
     padding: 80px;
-    margin-top: -80;
 }
