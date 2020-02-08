@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
-
+import { toast } from "react-toastify";
 /*ANT DESIGN */
 import { Form, Input, Button } from "antd";
 
@@ -20,7 +20,8 @@ const INITIAL_STATE = {
   email: "",
   passwordOne: "",
   passwordTwo: "",
-  error: null
+  error: null,
+  loading: false
 };
 
 class SignUpFormBase extends Component {
@@ -31,18 +32,35 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = event => {
+    event.preventDefault();
     const { email, passwordOne } = this.state;
-
+    this.setState({
+      ...this.state,
+      loading: true
+    });
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.HOME);
+        this.setState({
+          ...this.state,
+          loading: false
+        });
+        toast.success("Cadastro realizado com sucesso!", {
+          position: toast.POSITION.TOP_LEFT
+        });
       })
       .catch(error => {
-        this.setState({ error });
+        this.setState({
+          ...this.state,
+          loading: false,
+          error: { error }
+        });
+        toast.error("Ops, algo deu errado!", {
+          position: toast.POSITION.TOP_LEFT
+        });
       });
-    event.preventDefault();
   };
 
   onChange = event => {
@@ -50,7 +68,14 @@ class SignUpFormBase extends Component {
   };
 
   render() {
-    const { username, email, passwordOne, passwordTwo, error } = this.state;
+    const {
+      username,
+      email,
+      passwordOne,
+      passwordTwo,
+      error,
+      loading
+    } = this.state;
 
     const isInvalid =
       passwordOne !== passwordTwo ||
@@ -97,6 +122,7 @@ class SignUpFormBase extends Component {
           disabled={isInvalid}
           type="primary"
           htmlType="submit"
+          loading={this.state.loading}
         >
           Cadastrar
         </Button>

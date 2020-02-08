@@ -25,13 +25,15 @@ const loginData = {
 
 const SignInFormBase = ({ firebase }) => {
   const [loginUser, setLoginUser] = useState({ ...loginData });
-
+  const [loading, setLoading] = useState(false);
   const onSubmit = async event => {
+    setLoading(true);
     if (event) event.preventDefault();
     if (loginUser.email && loginUser.password) {
       const response = await login(firebase, loginUser);
       if (response) setLoginUser({ ...loginData });
     }
+    setLoading(false);
   };
 
   const isInvalid = !loginUser.email || !loginUser.password;
@@ -70,6 +72,7 @@ const SignInFormBase = ({ firebase }) => {
         disabled={isInvalid}
         htmlType="submit"
         type="primary"
+        loading={loading}
       >
         Entrar
       </Button>

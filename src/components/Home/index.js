@@ -1,16 +1,18 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useEffect, Fragment } from "react";
 import { withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import { getReports } from "../../actions/logs";
 import { useSelector, useDispatch } from "react-redux";
 import { List, Avatar, Select, Input } from "antd";
+
+import useFilteredReports from "./useFilteredReports";
+
 import { options1, options2, options3 } from "../../constants/options";
 
 const Home = ({ firebase }) => {
-  const [filters, setFilters] = useState([]);
-  const [reportsClone, setReportsClone] = useState([]);
-  const reports = useSelector(state => state.rdLogs.logs);
   const dispatch = useDispatch();
+  const reports = useSelector(state => state.rdLogs.logs);
+  const { filteredReports, actions } = useFilteredReports(reports);
 
   const InputGroup = Input.Group;
   const { Option } = Select;
@@ -21,67 +23,52 @@ const Home = ({ firebase }) => {
     })();
   }, []);
 
-  useEffect(() => {
-    // se tiver algo selecionado, filtrar antes de setar novo array
-    setReportsClone([...reports]);
-  }, [reports]);
-
-  const selectOption = (option, select) => {
-    if (!option) {
-    }
-    const filtersCurrent = [...filters];
-
-    filtersCurrent.push({
-      select,
-      option
-    });
-    setFilters(filtersCurrent);
-  };
-
   return (
     <Fragment>
       <InputGroup compact>
         <Select defaultValue={0}>
-          <Option value={0} onClick={() => selectOption(null, 1)}>
-            Selecione o filtro
+          <Option value={0} onClick={() => actions.handleFilterByStage(null)}>
+            Filtrar por
           </Option>
           {options1.map((opt, index) => (
             <Option
               key={index}
               value={opt.value}
-              onClick={() => selectOption(opt.value, 1)}
+              onClick={() => actions.handleFilterByStage(opt.value)}
             >
               {opt.label}
             </Option>
           ))}
         </Select>
       </InputGroup>
+
       <InputGroup compact>
         <Select defaultValue={0}>
-          <Option value={0} onClick={() => selectOption(null, 2)}>
-            Selecione o filtro 2
+          <Option value={0} onClick={() => actions.handleOrderBy(null, 2)}>
+            Ordenar por
           </Option>
           {options2.map((opt, index) => (
             <Option
               key={index}
               value={opt.value}
-              onClick={() => selectOption(opt.value, 2)}
+              onClick={() => actions.handleOrderBy(opt.value)}
             >
               {opt.label}
             </Option>
           ))}
         </Select>
       </InputGroup>
+
       <InputGroup compact>
         <Select defaultValue={0}>
-          <Option value={0} onClick={() => selectOption(null, 3)}>
+          <Option value={0} onClick={() => actions.handleSearchByType(null)}>
             Selecione o filtro 2
           </Option>
           {options3.map((opt, index) => (
             <Option
               key={index}
               value={opt.value}
-              onClick={() => selectOption(opt.value, 3)}
+              onClick={() => actions.handleSearchByType(opt.value)}
             >
               {opt.label}
             </Option>
@@ -90,7 +77,7 @@ const Home = ({ firebase }) => {
       </InputGroup>
 
       <List
-        dataSource={reportsClone}
+        dataSource={filteredReports}
         renderItem={item => (
           <List.Item key={item.id}>
             <List.Item.Meta
