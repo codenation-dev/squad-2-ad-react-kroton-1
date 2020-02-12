@@ -1,18 +1,15 @@
-  
-import { SET_LOGS } from '../actions/types';
+import { SET_LOGS, MODIFY_LOGS } from "../actions/types";
 
 const initialState = {
-	logs: [],
+  logs: []
 };
 
 export default (state = initialState, action) => {
+  switch (action.type) {
+    case SET_LOGS:
+      return { ...state, logs: action.payload.logs };
 
-	switch (action.type) {
-
-		case SET_LOGS:
-			return { ...state, logs: action.payload.logs }
-
-		default:
-			return state;
-	}
-}
+    default:
+      return state;
+  }
+};

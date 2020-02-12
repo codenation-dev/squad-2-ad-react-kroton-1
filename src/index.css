@@ -8,7 +8,7 @@ body {
 
 #root {
   height: 100%;
-  width: 100%
+  width: 100%;
 }
 
 .loginForm {
@@ -25,10 +25,97 @@ body {
   width: 100%;
 }
 
-#signInPage, #signUpPage, #accountPage, #passwordForgetPage {
+#login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo {
+  width: 100%;
+  height: 100%;
+}
+
+#signInPage,
+#signUpPage,
+#accountPage,
+#passwordForgetPage {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.home-top-content {
+  display: flex;
+  justify-content: flex-start;
+  background-color: #7232f2;
+  opacity: 0.8;
+  border-radius: 25px;
+}
+
+.home-top-content > span {
+  width: 100px;
+  margin: 20px;
+}
+
+#search-input {
+  flex-direction: row;
+  justify-items: flex-end;
+}
+#content {
+  padding: 20px 100px;
+}
+
+#list-content {
+  padding: 20px;
+}
+
+#hvr-float {
+  vertical-align: middle;
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  border-radius: 25px;
+  padding: 10px;
+  position: relative;
+}
+#hvr-float:hover,
+#hvr-float:focus,
+#hvr-float:active {
+  transform: translateY(-8px);
+  background-color: rgba(114, 50, 242, 0.1);
+  z-index: 1;
+}
+
+/* Grow */
+#hvr-grow {
+  position: relative;
+  vertical-align: middle;
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  border-radius: 25px;
+  padding: 5px;
+  height: 100px;
+  margin-top: 10px;
+
+  background-color: #fdfbfb;
+}
+
+#hvr-grow:hover,
+#hvr-grow:focus,
+#hvr-grow:active {
+  transform: scale(1.01);
+  background-color: rgba(114, 50, 242, 0.1);
+  z-index: 1;
 }

@@ -4,7 +4,7 @@ export const options1 = [
     label: "Produção"
   },
   {
-    value: "Homolog",
+    value: "Homologation",
     label: "Homologação"
   },
   {

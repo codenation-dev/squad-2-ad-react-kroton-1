@@ -2,43 +2,56 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../SignOut";
 import * as ROUTES from "../../constants/routes";
-import { AuthUserContext } from "../Session";
+import { withAuthentication } from "../Session";
 
-import { Layout, Menu } from "antd";
+import { uuid } from "uuidv4";
 
-const { Header } = Layout;
+import { Avatar } from "antd";
 
-const Navigation = ({ authUser }) => (
-  <Header style={{ height: "32px" }}>
-    <div className="logo" />
-    <AuthUserContext.Consumer>
-      {authUser => (authUser ? <NavigationAuth /> : <NavigationNonAuth />)}
-    </AuthUserContext.Consumer>
-  </Header>
-);
+import { Anchor, Box, Grommet, Header, Nav } from "grommet";
+import { grommet } from "grommet/themes";
+
+import logo from "../../images/test.png";
+
+const Navigation = props => {
+  console.log(props);
+  return props.firebase.auth.currentUser ? <NavigationAuth /> : null;
+};
+
+const items = [{ label: "MINHA CONTA", href: ROUTES.ACCOUNT }];
 
 const NavigationAuth = () => (
-  <Menu theme="dark" mode="horizontal" style={{ lineHeight: "32px" }}>
-    <Menu.Item key="1">
-      {" "}
-      <Link to={ROUTES.HOME}>Inicio</Link>{" "}
-    </Menu.Item>
-    <Menu.Item key="2">
-      {" "}
-      <Link to={ROUTES.ACCOUNT}>Minha Conta</Link>{" "}
-    </Menu.Item>
-    <Menu.Item key="3">
-      {" "}
-      <SignOutButton />{" "}
-    </Menu.Item>
-  </Menu>
+  <Grommet theme={grommet}>
+    <Header background="light" pad="medium">
+      <Box
+        hoverIndicator="true"
+        animation="slideRight"
+        direction="row"
+        align="center"
+        gap="small"
+      >
+        <Link to={ROUTES.HOME}>
+          <Anchor color="white">
+            <img style={{ width: 150, height: 50 }} src={logo}></img>
+          </Anchor>
+        </Link>
+      </Box>
+      <Box animation="slideLeft" direction="row" align="end" gap="medium">
+        <Avatar
+          size={64}
+          src={`https://avatars.dicebear.com/v2/avataaars/${uuid()}.svg`}
+        ></Avatar>
+        <Nav direction="row">
+          {items.map(item => (
+            <Link to={item.href}>
+              <Anchor label={item.label} key={item.label} />
+            </Link>
+          ))}
+          <SignOutButton />
+        </Nav>
+      </Box>
+    </Header>
+  </Grommet>
 );
-const NavigationNonAuth = () => (
-  <Menu theme="dark" mode="horizontal" style={{ lineHeight: "32px" }}>
-    <Menu.Item key="1">
-      {" "}
-      <Link to={ROUTES.SIGN_IN}>Login</Link>{" "}
-    </Menu.Item>
-  </Menu>
-);
-export default Navigation;
+
+export default withAuthentication(Navigation);

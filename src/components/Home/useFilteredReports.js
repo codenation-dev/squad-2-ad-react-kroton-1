@@ -13,8 +13,8 @@ export default function useFilteredReports(reports) {
     setOrderBy(value);
   }
 
-  function handleSearchByType(type) {
-    setSearchBy({ ...searchBy, type });
+  function handleSearchByType(type, value) {
+    setSearchBy({ ...searchBy, type: type, value: value });
   }
 
   const filteredReports = useMemo(() => {
@@ -36,9 +36,10 @@ export default function useFilteredReports(reports) {
 
     if (Object.values(searchBy).some(value => !value)) return reportsB;
 
-    const finalReports = reportsB.filter(report =>
-      String(report[searchBy.type]).includes(searchBy.value)
-    );
+    const finalReports = reportsB.filter(report => {
+      console.log(searchBy);
+      return String(report[searchBy.type]).includes(searchBy.value);
+    });
 
     return finalReports;
   }, [reports, stageFilter, orderBy, searchBy]);
@@ -47,5 +48,3 @@ export default function useFilteredReports(reports) {
 
   return { filteredReports, actions };
 }
-
-export function hello() {}

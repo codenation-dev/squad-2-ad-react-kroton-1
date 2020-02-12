@@ -5,13 +5,14 @@ import { SignUpLink } from "../SignUp";
 import { withFirebase } from "../Firebase";
 import { login } from "../../actions/users";
 
+import logo from "../../images/test.png";
+
 /* ANT DESIGN */
 import { Button, Input, Form, Icon } from "antd";
 import { PasswordForgetLink } from "../PasswordForget";
 
 const SignInPage = () => (
   <div id="signInPage">
-    <h1>Login</h1>
     <SignInForm />
     <SignUpLink />
     <PasswordForgetLink />
@@ -39,44 +40,47 @@ const SignInFormBase = ({ firebase }) => {
   const isInvalid = !loginUser.email || !loginUser.password;
 
   return (
-    <Form
-      className="loginForm"
-      style={{ maxWidth: "300px" }}
-      onSubmit={onSubmit}
-    >
-      <Input
-        prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-        style={{ marginTop: "25px" }}
-        name="email"
-        value={loginUser.email}
-        onChange={evt =>
-          setLoginUser({ ...loginUser, email: evt.target.value })
-        }
-        type="text"
-        placeholder="E-mail"
-      />
-      <Input
-        prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-        style={{ marginTop: "25px" }}
-        name="password"
-        value={loginUser.password}
-        onChange={evt =>
-          setLoginUser({ ...loginUser, password: evt.target.value })
-        }
-        type="password"
-        placeholder="Senha"
-      />
-      <Button
-        id="loginButton"
-        style={{ width: "100%" }}
-        disabled={isInvalid}
-        htmlType="submit"
-        type="primary"
-        loading={loading}
+    <div id="login-page">
+      <img id="logo" src={logo} alt="logo"></img>
+      <Form
+        className="loginForm"
+        style={{ maxWidth: "300px" }}
+        onSubmit={onSubmit}
       >
-        Entrar
-      </Button>
-    </Form>
+        <Input
+          prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+          style={{ marginTop: "25px" }}
+          name="email"
+          value={loginUser.email}
+          onChange={evt =>
+            setLoginUser({ ...loginUser, email: evt.target.value })
+          }
+          type="text"
+          placeholder="E-mail"
+        />
+        <Input
+          prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+          style={{ marginTop: "25px" }}
+          name="password"
+          value={loginUser.password}
+          onChange={evt =>
+            setLoginUser({ ...loginUser, password: evt.target.value })
+          }
+          type="password"
+          placeholder="Senha"
+        />
+        <Button
+          id="loginButton"
+          style={{ width: "100%" }}
+          disabled={isInvalid}
+          htmlType="submit"
+          type="primary"
+          loading={loading}
+        >
+          Entrar
+        </Button>
+      </Form>
+    </div>
   );
 };
 
