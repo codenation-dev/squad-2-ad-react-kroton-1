@@ -12,9 +12,17 @@ export const getReports = firebase => async dispatch => {
   await linkCollection
     .get()
     .then(async querySnapshot => {
-      const data = querySnapshot.docs.map(doc => doc.data()) || [];
-      console.log("data", data);
-      await dispatch(SET_LOGS_REDUX(data));
+      const data =
+        querySnapshot.docs.map(doc => {
+          let object = doc.data();
+          object = {
+            ...object,
+            realId: doc.id,
+            date: object.date.toDate().toString()
+          };
+          return object;
+        }) || [];
+      dispatch(SET_LOGS_REDUX(data));
     })
     .catch(error => {
       console.log(error);
@@ -22,4 +30,55 @@ export const getReports = firebase => async dispatch => {
         position: toast.POSITION.TOP_LEFT
       });
     });
+};
+
+export const excludeReports = (firebase, reports) => async dispatch => {
+  let database = firebase.db.collection("reports");
+  for (const [key, value] of reports.entries()) {
+    database
+      .doc(key)
+      .delete()
+      .then(function() {
+        dispatch(getReports(firebase));
+      })
+      .catch(function(error) {
+        toast.error("😭 Erro interno do servidor.", {
+          position: toast.POSITION.TOP_LEFT
+        });
+      });
+  }
+};
+
+export const archiveReports = (
+  firebase,
+  map,
+  showArchived
+) => async dispatch => {
+  let database = firebase.db.collection("reports");
+  let show = !showArchived ? true : false;
+  console.log(map);
+
+  for (let [key, value] of map.entries()) {
+    console.log(key, value);
+    if (value) {
+      await database
+        .doc(key)
+        .update({ archived: show })
+        .catch(function(error) {
+          toast.error(`😭 Erro interno do servidor. ${error}`, {
+            position: toast.POSITION.TOP_LEFT
+          });
+        });
+    }
+  }
+
+  dispatch(getReports(firebase));
+  toast.success(
+    show
+      ? "😍 Erros arquivados com sucesso"
+      : "😍 Erros desarquivados com sucesso",
+    {
+      position: toast.POSITION.TOP_LEFT
+    }
+  );
 };
