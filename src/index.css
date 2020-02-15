@@ -72,6 +72,7 @@ body {
   padding: 0px 100px;
   justify-self: flex-start;
   height: 100%;
+  overflow-y: scroll;
 }
 
 #content-footer {

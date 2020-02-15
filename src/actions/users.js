@@ -10,13 +10,13 @@ export const login = async (firebase, data) => {
     .then(() => {
       response = true;
       history.push(ROUTES.HOME);
-      toast.success("Login realizado com sucesso!", {
+      toast.success("👏 Login realizado com sucesso!", {
         position: toast.POSITION.TOP_LEFT
       });
     })
     .catch(() => {
       response = false;
-      toast.error("Login e/ou senha inválidos.", {
+      toast.error(" 🔐 Login e/ou senha inválidos.", {
         position: toast.POSITION.TOP_LEFT
       });
     });

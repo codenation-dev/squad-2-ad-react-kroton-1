@@ -14,7 +14,6 @@ import { grommet } from "grommet/themes";
 import logo from "../../images/test.png";
 
 const Navigation = props => {
-  console.log(props);
   return props.firebase.auth.currentUser ? <NavigationAuth /> : null;
 };
 

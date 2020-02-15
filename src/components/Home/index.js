@@ -199,7 +199,7 @@ const Home = ({ firebase }) => {
         </Box>
         {filteredReports.map(item => {
           return (
-            <div key={item.realId}>
+            <div className="lista" key={item.realId}>
               <List.Item id="hvr-grow">
                 <List.Item.Meta
                   avatar={

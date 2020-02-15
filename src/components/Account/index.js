@@ -6,6 +6,7 @@ const AccountPage = () => (
     {authUser => (
       <div id="accountPage">
         <h1>Usuário: {authUser.email}</h1>
+        <h2>Mudança de senha</h2>
         <PasswordChangeForm />
       </div>
     )}

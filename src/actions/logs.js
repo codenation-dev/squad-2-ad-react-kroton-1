@@ -25,8 +25,7 @@ export const getReports = firebase => async dispatch => {
       dispatch(SET_LOGS_REDUX(data));
     })
     .catch(error => {
-      console.log(error);
-      toast.error("Erro interno do servidor.", {
+      toast.error("💩 Erro interno do servidor.", {
         position: toast.POSITION.TOP_LEFT
       });
     });
@@ -40,9 +39,12 @@ export const excludeReports = (firebase, reports) => async dispatch => {
       .delete()
       .then(function() {
         dispatch(getReports(firebase));
+        toast.success(`👏 Erros excluídos com sucesso`, {
+          position: toast.POSITION.TOP_LEFT
+        });
       })
       .catch(function(error) {
-        toast.error("😭 Erro interno do servidor.", {
+        toast.error("💩 Erro interno do servidor.", {
           position: toast.POSITION.TOP_LEFT
         });
       });
@@ -56,16 +58,14 @@ export const archiveReports = (
 ) => async dispatch => {
   let database = firebase.db.collection("reports");
   let show = !showArchived ? true : false;
-  console.log(map);
 
   for (let [key, value] of map.entries()) {
-    console.log(key, value);
     if (value) {
       await database
         .doc(key)
         .update({ archived: show })
         .catch(function(error) {
-          toast.error(`😭 Erro interno do servidor. ${error}`, {
+          toast.error(`💩 Erro interno do servidor. ${error}`, {
             position: toast.POSITION.TOP_LEFT
           });
         });
@@ -75,8 +75,8 @@ export const archiveReports = (
   dispatch(getReports(firebase));
   toast.success(
     show
-      ? "😍 Erros arquivados com sucesso"
-      : "😍 Erros desarquivados com sucesso",
+      ? "👏 Erros arquivados com sucesso"
+      : "👏 Erros desarquivados com sucesso",
     {
       position: toast.POSITION.TOP_LEFT
     }

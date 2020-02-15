@@ -40,8 +40,6 @@ export default function useFilteredReports(reports) {
       const typeB = b.type === "error" ? 3 : b.type === "warning" ? 2 : 1;
       return typeB - typeA;
     });
-
-    console.log(reportsB, orderBy);
     const reportsC = reportsB.filter(report => {
       if (!showArchived) return !report.archived;
       else {
